@@ -5,7 +5,7 @@ donor_data = {'AppaRao': '33.00', 'Angel': '40.00', 'Winafred': '50.00'}
 def take_input():
     user_input = input('Enter ty for Thank You OR report for report: ')
     if user_input == 'ty':
-        return create_thankyou()
+        return create_thank_you()
     if user_input == report:
         return create_report()
 
@@ -21,15 +21,18 @@ def create_thank_you():
 
 
 def send_thank_you():
+   print('Thank You')
 
 
 def create_new_donor():
-    new_name = input('Enter new Full name')
-    donations = input('Enter Amount to donate')
-    donor_data[new_name] = donations
+    new_name = input('Enter New Full name: ')
+    donation = input('Enter Amount to donate: ')
+    donor_data[new_name] = donation
+    print(donor_data)
 
 
 def donor_list():
+    print('Here is your list')
     # return keys of donor_data
 
 
