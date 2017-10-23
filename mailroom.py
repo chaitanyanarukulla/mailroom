@@ -32,8 +32,9 @@ def create_new_donor():
 
 
 def donor_list():
-    print('Here is your list')
-    # return keys of donor_data
+    for item in donor_data.keys():
+        print(item)
+    # return donor_data.keys()
 
 
 def create_report():
