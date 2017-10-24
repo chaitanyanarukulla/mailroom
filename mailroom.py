@@ -19,15 +19,17 @@ def create_thank_you():
     donor_name = input('Enter Full Name (First, Last): ')
     if donor_name == 'list':
         return donor_list()
-    if donor_name in donor_data:
-        return send_thank_you()
+    elif donor_name in donor_data:
+        donation = input('Enter Amount to donate: ')
+        donor_data[donor_name] = donation
+        return send_thank_you(donor_name,donation)
     else:
         create_new_donor()
 
 
-def send_thank_you(name,donation_amount):
+def send_thank_you(donor_name,donation):
    print('Thank You')
-   return('{} thank you for your kind donation of ${}')
+   return('{} thank you for your kind donation of ${}'.format(donor_name,donation))
 
 
 def create_new_donor():
@@ -37,6 +39,7 @@ def create_new_donor():
         print('\nPlease enter a number.\n')
     else:
         donor_data[new_name] = donation
+        send_thank_you(new_name,donation)
 
 
 def donor_list():
@@ -49,11 +52,12 @@ def create_report():
     from tabulate import tabulate
     all_doner_list = []
     for key in donor_data:
-        total = sum(donor_data,[key])
+        total = sum(donor_data[key])
         times_donated = len(donor_data[key])
         avg = total/times_donated
         all_doner_list.append([key, total, times_donated,avg])
-        return(tabulate(all_doner_list,headers['Name', 'Donated', '#Times', 'Avg Donation']))
+        print(tabulate(all_doner_list, headers =['Name', 'Donated', '#Times', 'Avg Donation']))
+        return(tabulate(all_doner_list, headers =['Name', 'Donated', '#Times', 'Avg Donation']))
 
 
 take_input()
