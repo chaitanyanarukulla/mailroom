@@ -1,13 +1,18 @@
 """Mailroom Project"""
-
-donor_data = {'AppaRao': '33.00', 'Angel': '40.00', 'Winafred': '50.00'}
+import sys
+donor_data = {'AppaRao': [34,100,75], 'Angel':[35, 80, 90,76], 'Winafred':[56,85,90]}
 
 def take_input():
     user_input = input('Enter ty for Thank You OR report for report: ')
     if user_input == 'ty':
-        return create_thank_you()
-    if user_input == report:
-        return create_report()
+        create_thank_you()
+    elif user_input == 'report':
+         create_report()
+    elif user_input == 'Q':
+        sys.exit()
+    else:
+        print('Please type a valid Input')
+        take_input()
 
 
 def create_thank_you():
@@ -20,26 +25,35 @@ def create_thank_you():
         create_new_donor()
 
 
-def send_thank_you():
+def send_thank_you(name,donation_amount):
    print('Thank You')
+   return('{} thank you for your kind donation of ${}')
 
 
 def create_new_donor():
     new_name = input('Enter New Full name: ')
     donation = input('Enter Amount to donate: ')
-    donor_data[new_name] = donation
-    print(donor_data)
+    if donation.isalpha():
+        print('\nPlease enter a number.\n')
+    else:
+        donor_data[new_name] = donation
 
 
 def donor_list():
     for item in donor_data.keys():
         print(item)
-    # return donor_data.keys()
+        return item
 
 
 def create_report():
-    print('Report')
+    from tabulate import tabulate
+    all_doner_list = []
+    for key in donor_data:
+        total = sum(donor_data,[key])
+        times_donated = len(donor_data[key])
+        avg = total/times_donated
+        all_doner_list.append([key, total, times_donated,avg])
+        return(tabulate(all_doner_list,headers['Name', 'Donated', '#Times', 'Avg Donation']))
 
 
 take_input()
-
