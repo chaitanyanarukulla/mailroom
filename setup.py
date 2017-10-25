@@ -1,15 +1,23 @@
-from setuptools import setup
+dependences = ['ipython']
+extra_packages = {
+    'testing': ['pytest', 'pytest-watch', 'pytest-cov', 'tox']
+}
 
 
 setup(
-    extras_require={
-        'testing': ['pytest', 'pytest-cov', 'pytest-watch', 'tox'],
-        'development': ['ipython']
-    },
-    # ...
+    name='Mailroom Madness',
+    description='401 Python project',
+    version='0.1',
+    authors='Chaitanya, Marco',
+    author_email='chaitanyanarukulla@gmail.com',
+    license='MIT',
+    py_modules=['mailroom', 'test_mailroom'],
+    package_dir={'': 'src'},
+    install_requires=dependences,
+    extras_require=extra_packages,
     entry_points={
         'console_scripts': [
-            "mailroom = mailroom:main"
+            'mailroom=mailroom:main'
         ]
     }
 )
