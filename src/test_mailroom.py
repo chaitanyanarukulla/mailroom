@@ -1,48 +1,40 @@
 """Test functions for functions in mailroom.py."""
 import pytest
-est = [('chai', 50), '{} thank you for your kind donation of ${}'.format(chai, 50)]
 
 
-@pytest.mark.parametrize('parm,result', Test)
-def test_send_thankyou(parm, result):
-    """."""
-    from mailroom import send_thankyou
-    assert send_thankyou(parm) == result
+Test = [("Chai", 50, "Chai thank you for your kind donation of $50"),
+        ("Bob", 90, "Bob thank you for your kind donation of $90"),
+        ("Rob", 60, "Rob thank you for your kind donation of $60"),
+        ("Chad", 90, "Chad thank you for your kind donation of $90")]
+
+TEST2 = [('222'), ('2456'), ('555'), ('10'), ('20'), ('40'), ('100')]
+TEST3 = [('10'), ('20'), ('40'), ('100'), ('50'), ('1000'), ('76'), ('1400')]
 
 
-Test_2 = [([chai,bob,mob,taj],chai,bob,mob,taj)]
+@pytest.mark.parametrize('parm,parm2,result', Test)
+def test_send_thank_you(parm, parm2, result):
+    """Testsing send tahbk_you function"""
+    from mailroom import send_thank_you
+    assert send_thank_you(parm, parm2) == result
 
 
-@pytest.mark.parametrize('parm,result', Test_2)
-def test_donor_list(parm):
-    """."""
+def test_donor_list():
+    """Testing the Donor List"""
     from mailroom import donor_list
-    assert donor_list(parm) == result
+    assert donor_list()
 
 
-trst_3 = [('chai', 50), '{} thank you for your kind donation of ${}'.format(chai, 50)]
-
-@pytest.mark.parametrize('parm,result', Test_3)
-def test_create_new_donor(parm):
-    """."""
-    from mailroom import create_new_donor
-    assert create_new_donor(parm) == result
-
-
-DONORS_2 = {
-    'Chai': [300, 10, 15],
-    'Bob': [10, 200, 50],
-    'POP': [1000]}
-
-Table = [
-    'Chai            3         108.33   ',
-    'Bob             3         86.67    ',
-    'POP             1         1000.00   '
-]
-
-
-@pytest.mark.parametrize('string', Table)
-def test_create_report(string):
-    """Test to determine if the correct donor and donation."""
+@pytest.mark.parametrize('check', TEST2)
+def test_avg_donation_in_create_report(check):
+    """Test if the average  amount in create_report()."""
     from mailroom import create_report
-    assert string in create_report(DONORS_2)
+    out = create_report()
+    assert out.find(check)
+
+
+@pytest.mark.parametrize('donation', TEST3)
+def test_donation_amounts_in_create_report(donation):
+    """Test if donation is  in create_report()."""
+    from mailroom import create_report
+    out = create_report()
+    assert out.find(donation)
